@@ -1,0 +1,26 @@
+Bootstrap: localimage
+From: ./base_img.sif
+
+%files
+    ./CQL /contained/project/CQL
+
+
+%environment
+    source /contained/anaconda3/etc/profile.d/conda.sh
+    conda activate $(cat /contained/setup/environment.yml | egrep "name: .+$" | sed -e 's/^name:[ \t]*//')
+
+    export MUJOCO_PY_MJKEY_PATH='/contained/software/mujoco/mjkey.txt'
+    export MUJOCO_PY_MUJOCO_PATH='/contained/software/mujoco/mujoco200'
+    export MJKEY_PATH='/contained/software/mujoco/mjkey.txt'
+    export MJLIB_PATH='/contained/software/mujoco/mujoco200/bin/libmujoco200.so'
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/contained/software/mujoco/mujoco200/bin"
+    export D4RL_SUPPRESS_IMPORT_ERROR=1
+
+    export WANDB_API_KEY=''
+
+    export PYTHONPATH="$PYTHONPATH:/contained/project/CQL"
+
+
+%runscript
+    #! /bin/bash
+    python -m "$@"

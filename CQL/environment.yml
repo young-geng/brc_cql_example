@@ -1,0 +1,33 @@
+name: SimpleSAC
+channels:
+    - https://conda.anaconda.org/pytorch
+dependencies:
+    - python=3.8
+    - pip
+    - numpy
+    - scipy
+    - numba
+    - h5py
+    - matplotlib
+    - scikit-learn
+    - jupyter
+    - mpi4py
+    - patchelf
+    - pytorch=1.9.0
+    - cudatoolkit=10.2
+    - pip:
+        - Cython
+        - scikit-image
+        - tqdm
+        - seaborn
+        - gym
+        - mujoco_py==2.0.2.5
+        - box2d
+        - absl-py
+        - opencv-python
+        - pygame
+        - gtimer
+        - joblib
+        - git+https://github.com/young-geng/d4rl@master#egg=d4rl
+        - wandb
+        - ml_collections
