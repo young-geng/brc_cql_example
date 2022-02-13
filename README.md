@@ -38,6 +38,8 @@ singularity build --fakeroot base_img.sif base_container.def
 ```
 
 ### Build the Code Container
+Run the following command to build the code container that package our research
+project. For detailed information on how container is built, see [code_container.def](code_container.def).
 
 ```
 singularity build --fakeroot code_img.sif code_container.def
@@ -58,6 +60,14 @@ scp ./code_img.sif ./job_script.sh ./advanced_job_script.sh \
 ```
 
 ### Launch the job
+We have two example job script here. One naive one that runs one training process
+for each slurm job, and one advanced one that runs multiple processes in parallel
+for each slurm job. To use the naive one, run the following command on BRC login node:
 ```
 ./job_script.sh
+```
+
+To used the adavanced job script, run the following command:
+```
+./advanced_job_script.sh
 ```

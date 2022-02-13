@@ -1,11 +1,13 @@
 Bootstrap: localimage
-From: ./base_img.sif
+From: ./base_img.sif   # Starting from our base container image
 
+# Copy the research project code
 %files
     ./CQL /contained/project/CQL
 
 
 %environment
+    # Activate conda environment
     source /contained/anaconda3/etc/profile.d/conda.sh
     conda activate $(cat /contained/setup/environment.yml | egrep "name: .+$" | sed -e 's/^name:[ \t]*//')
 
@@ -18,9 +20,11 @@ From: ./base_img.sif
 
     export WANDB_API_KEY=''
 
+    # Set up python path for the research project
     export PYTHONPATH="$PYTHONPATH:/contained/project/CQL"
 
 
 %runscript
     #! /bin/bash
     python -m "$@"
+    # Entry point for singularity run
