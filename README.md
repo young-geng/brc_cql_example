@@ -13,7 +13,7 @@ instructions for building the container and running it on BRC cluster.
         * ...
     * [base_container.def](base_container.def):   singularity definition file for the base container, with all the dependencies installed but without the code
     * [code_container.def](code_container.def):   singularity definition file for the code container, copying the code to base container
-    * [job_script.sh](job_script.sh):    script for launching hyperparameter sweep job with slurm on BRC
+    * [launch_sweep.sh](launch_sweep.sh):    script for launching hyperparameter sweep job with slurm on BRC
 
 
 
@@ -45,20 +45,20 @@ singularity build --fakeroot code_img.sif code_container.def
 ```
 
 
-### Copy the Container and Job Script to BRC
+### Copy the Container and Slurm Job Script to BRC
 First ssh into the BRC DTN node, and create the project directory.
 ```
 cd /global/scratch/users/<YOUR BRC USER NAME>
 mkdir brc_cql_example
 ```
 
-Then use scp to copy the job scripts and container to BRC.
+Then use scp to copy the job script and container to BRC.
 ```
-scp ./code_img.sif ./job_script.sh ./advanced_job_script.sh \
+scp ./code_img.sif ./launch_sweep.sh \
     <YOUR BRC USER NAME>@dtn.brc.berkeley.edu:/global/scratch/users/<YOUR BRC USER NAME>/brc_cql_example/
 ```
 
-### Launch the job
+### Launch the Hyperparmeter Sweep Job
 We provide an example job script that launches a hyperparameter sweep of 12 configurations on 4 GPUs. The job script
 uses a combination of slurm array job and GNU parallel to evenly distributed hyperparameter configurations
 to 4 array tasks, with each array task running 3 configurations in parallel. To launch the hyperparmeter
