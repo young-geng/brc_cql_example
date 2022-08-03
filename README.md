@@ -13,8 +13,7 @@ instructions for building the container and running it on BRC cluster.
         * ...
     * [base_container.def](base_container.def):   singularity definition file for the base container, with all the dependencies installed but without the code
     * [code_container.def](code_container.def):   singularity definition file for the code container, copying the code to base container
-    * [job_script.sh](job_script.sh):    simple script for launching jobs with slurm on BRC
-    * [advanced_job_script.sh](advanced_job_script.sh):   more adavanced job script based on GNU Parallel, useful for large hyperparameter sweep
+    * [job_script.sh](job_script.sh):    script for launching hyperparameter sweep job with slurm on BRC
 
 
 
@@ -60,14 +59,10 @@ scp ./code_img.sif ./job_script.sh ./advanced_job_script.sh \
 ```
 
 ### Launch the job
-We have two example job script here. One naive one that runs one training process
-for each slurm job, and one advanced one that runs multiple processes in parallel
-for each slurm job. To use the naive one, run the following command on BRC login node:
+We provide an example job script that launches a hyperparameter sweep of 12 configurations on 4 GPUs. The job script
+uses a combination of slurm array job and GNU parallel to evenly distributed hyperparameter configurations
+to 4 array tasks, with each array task running 3 configurations in parallel. To launch the hyperparmeter
+sweep, run the following command on BRC login node:
 ```
-./job_script.sh
-```
-
-To used the adavanced job script, run the following command:
-```
-./advanced_job_script.sh
+sbatch launch_sweep.sh
 ```
