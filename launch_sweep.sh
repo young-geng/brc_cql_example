@@ -1,11 +1,11 @@
 #! /bin/bash
 # This is a job script that uses array jobs and GNU parallel to launch a hyperparameter
-# sweep. We use Parallel to launch M jobs, with each job running N processes in parallel.
+# sweep. We use Parallel to launch M array tasks, with each job running N processes in parallel.
 # By using some tricks, we can evenly distribution our overall hyperparameter configurations
 # to these M x N total parallel processes.
 
-# Job configurations. Note in the last line that we are launching an array jobs of 4 tasks,
-# each task will execute this script. We use the environment variable SLURM_ARRAY_TASK_ID
+# Job configurations. Note in the last line that we are launching an array job of 4 tasks,
+# all tasks will execute this script. We use the environment variable SLURM_ARRAY_TASK_ID
 # to determine which array task it is.
 
 #SBATCH --job-name=example_cql
